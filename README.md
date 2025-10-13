@@ -1,7 +1,7 @@
 # Prose Sorter
 A program using PyTorch to create neural networks which classify sentences according to their mood. Available choices are "Happy", "Sad", "Angry", "Informative", "Nonsense", "Funny".
 
-# How to Use
+# How to Install and Run
 prose-sort.py runs on Python 3.13.7 with libraries torch, numpy, pandas, sqlite3, and tkinter. First, run:
 ```
 pip install torch numpy pandas
@@ -23,8 +23,7 @@ The program expects four csv files as input in the same directory as prose-sort.
 * test_labels.csv: Numbers between 0 - 5 for each sentence in data.csv corresponding to: "Happy", "Sad", "Angry", "Informative", "Nonsense", "Funny".  
 After running, the program will create neural_net.pth.
 
-# Ideas for Features
-There are the features I identify which may enhance the program if added in the future:
+# Future Plans
 * Use a raw format for input files instead of CSV files.
 * Allow the user to enter sentences and their labels. These should be written to a new file before being added to the test or training data files.
 * Allow the user to crate and update new categories altogether after the program runs.
