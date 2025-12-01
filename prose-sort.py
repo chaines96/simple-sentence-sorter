@@ -1,5 +1,5 @@
 import torch, numpy, pandas
-from torch import nn
+from torch import nn 
 from torch.utils.data import Dataset, DataLoader
 from tkinter import * #for the GUI
 
@@ -32,15 +32,15 @@ test_data = SentenceDataset(
     label_path = "test_labels.csv"
 )
 
+#Two variables that must be defined after we verify that data.csv and test.csv are loaded.
+data_len = len(pandas.read_csv("data.csv").iloc[0]) #The amount of rows in the CSV file, representing the number of entries of the training data.
+batch_size = (data_len // 4) + 1 #The size of the batch of each epoch. Should sacle with the size of the data; I would consider hard coding this to 5.
+
 # Data loaders prototyped from PyTorch.
 train_dataloader = DataLoader(training_data, batch_size=batch_size)
 test_dataloader = DataLoader(test_data, batch_size=batch_size)
 
 device = torch.accelerator.current_accelerator().type if torch.accelerator.is_available() else "cpu"
-
-#Two variables that must be defined after we verify that data.csv and test.csv are loaded.
-data_len = len(pandas.read_csv("data.csv").iloc[0]) #The amount of rows in the CSV file, representing the number of entries of the training data.
-batch_size = (data_len // 4) + 1 #The size of the batch of each epoch. Should sacle with the size of the data; I would consider hard coding this to 5.
 
 # Initializing the NeutralNetwork class.
 class NeuralNetwork(nn.Module):
@@ -138,8 +138,10 @@ with torch.no_grad():
 
 model.train()  #Turns the neural network into training mode.
 
+new_sentence = "" #Defining the new_sentence variable as a string.
+
 def enter_data():
-    print(new_sentence)
+    new_sentence = new_sentence_var.get() #The string will be euqal to the text the user has entered.
     return
 
 enter_button = Button(main_window,text="Progress",command=enter_data,activebackground="blue", activeforeground="white",anchor="center",bd=3,bg="lightgray",cursor="hand2",
@@ -148,7 +150,6 @@ enter_button = Button(main_window,text="Progress",command=enter_data,activebackg
 new_sentence_var = StringVar()
 new_sentence_var.set("")
 text_entry = Entry(main_window, textvariable=new_sentence_var,font=('Arial',16))
-new_sentence = new_sentence_var.get()
 
 #Creates a widget in the main_window tkinter instance.
 result_widget = Label(main_window, text = out_text,font="Arial 16")
